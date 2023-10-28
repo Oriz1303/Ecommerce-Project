@@ -1,0 +1,27 @@
+Hibernate: create table address (id bigint not null, city varchar(255), first_name varchar(255), last_name varchar(255), mobile varchar(255), state varchar(255), street_address varchar(255), zip_code varchar(255), user_id bigint, primary key (id)) engine=InnoDB
+Hibernate: create table address_seq (next_val bigint) engine=InnoDB
+Hibernate: insert into address_seq values ( 1 )
+Hibernate: create table category (id bigint not null, level integer not null, name varchar(50) not null, parent_category_id bigint, primary key (id)) engine=InnoDB
+Hibernate: create table category_seq (next_val bigint) engine=InnoDB
+Hibernate: insert into category_seq values ( 1 )
+Hibernate: create table payment_information (user_id bigint not null, card_number varchar(255), cardholder_name varchar(255), cvv varchar(255), expiration_date date) engine=InnoDB
+Hibernate: create table product (id bigint not null, brand integer, color integer, created_at datetime(6), description varchar(255), discount_percent integer, discounted_price integer, image_url varchar(255), num_ratings integer, price integer not null, quantity integer, title varchar(255), category_id bigint, primary key (id)) engine=InnoDB
+Hibernate: create table product_seq (next_val bigint) engine=InnoDB
+Hibernate: insert into product_seq values ( 1 )
+Hibernate: create table product_sizes (product_id bigint not null, name varchar(255), quantity integer not null) engine=InnoDB
+Hibernate: create table rating (id bigint not null auto_increment, created_at date, rating float(53), product_id bigint not null, user_id bigint not null, primary key (id)) engine=InnoDB
+Hibernate: create table review (id bigint not null, created_at datetime(6), review varchar(255), product_id bigint, user_id bigint, primary key (id)) engine=InnoDB
+Hibernate: create table review_seq (next_val bigint) engine=InnoDB
+Hibernate: insert into review_seq values ( 1 )
+Hibernate: create table user (id bigint not null, created_at datetime(6), email varchar(255), first_name varchar(255), last_name varchar(255), mobile varchar(255), password varchar(255), role varchar(255), primary key (id)) engine=InnoDB
+Hibernate: create table user_seq (next_val bigint) engine=InnoDB
+Hibernate: insert into user_seq values ( 1 )
+Hibernate: alter table address add constraint FKda8tuywtf0gb6sedwk7la1pgi foreign key (user_id) references user (id)
+Hibernate: alter table category add constraint FKs2ride9gvilxy2tcuv7witnxc foreign key (parent_category_id) references category (id)
+Hibernate: alter table payment_information add constraint FKcb0vkk9ey9j41no8yn0p60j95 foreign key (user_id) references user (id)
+Hibernate: alter table product add constraint FK1mtsbur82frn64de7balymq9s foreign key (category_id) references category (id)
+Hibernate: alter table product_sizes add constraint FK4w69qsh5hd062xv3hqkpgpdpu foreign key (product_id) references product (id)
+Hibernate: alter table rating add constraint FKlkuwie0au2dru36asng9nywmh foreign key (product_id) references product (id)
+Hibernate: alter table rating add constraint FKpn05vbx6usw0c65tcyuce4dw5 foreign key (user_id) references user (id)
+Hibernate: alter table review add constraint FKiyof1sindb9qiqr9o8npj8klt foreign key (product_id) references product (id)
+Hibernate: alter table review add constraint FKiyf57dy48lyiftdrf7y87rnxi foreign key (user_id) references user (id)
